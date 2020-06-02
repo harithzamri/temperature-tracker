@@ -1,39 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Body.module.css";
 
 function Body() {
+  const [EmployeeId, setEmployeeId] = useState("");
+  const [Temperature, setTemperature] = useState("");
+  const [Symptom, setSymptom] = useState("Healthy");
+  const [Shift, setShift] = useState("Morning");
+
+  function onSubmit(e) {
+    e.preventDefault();
+    console.log(EmployeeId, Temperature, Symptom, Shift);
+
+    if (!EmployeeId || !Temperature || !Symptom || !Shift) {
+      return alert("please complete the form first");
+    }
+  }
+
+  const symptom = [
+    { id: 1, name: "Healthy" },
+    { id: 2, name: "Fever" },
+    { id: 3, name: "Difficult to breath" },
+    { id: 4, name: "Cough" },
+  ];
+
+  const shift = [
+    { id: 1, name: "Morning" },
+    { id: 2, name: "Night" },
+  ];
+
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <label className="label">EmployeeID</label>
         <div className="control">
-          <input className="input" type="text" placeholder="Employee ID" />
+          <input
+            className="input"
+            type="text"
+            placeholder="Employee ID"
+            onChange={(e) => setEmployeeId(e.target.value)}
+            value={EmployeeId}
+          />
         </div>
         <label className="label">Temperature</label>
         <div className="control">
-          <input className="input" type="number" placeholder="Temperature" />
+          <input
+            className="input"
+            type="number"
+            placeholder="Temperature"
+            onChange={(e) => setTemperature(e.target.value)}
+            value={Temperature}
+          />
         </div>
         <div className={styles["checkbox"]}>
-          <label className="checkbox">
-            <input type="checkbox" />
-            Cough
-          </label>
-          <label className="checkbox">
-            <input type="checkbox" />
-            Fever
-          </label>
-          <label className="checkbox">
-            <input type="checkbox" />
-            Difficult To Breath
-          </label>
+          {symptom.map((symptom) => (
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value={symptom.name}
+                key={symptom.id}
+                onChange={(e) => setSymptom(e.target.value)}
+              />
+              {symptom.name}
+            </label>
+          ))}
+        </div>
+        <label className="label">Shift</label>
+        <div className="control">
+          {shift.map((shift) => (
+            <label className="radio">
+              <input
+                type="radio"
+                key={shift.id}
+                name="answer"
+                value={shift.name}
+                onChange={(e) => setShift(e.target.value)}
+              />
+              {shift.name}
+            </label>
+          ))}
         </div>
         <div>
-          <button className="button is-primary">
-            <span className="icon is-small">
-              <i className="fas fa-check"></i>
-            </span>
-            <span>Save</span>
-          </button>
+          <div className="buttons">
+            <button className="button is-primary" onClick={onSubmit}>
+              Save
+            </button>
+          </div>
         </div>
       </form>
     </div>
