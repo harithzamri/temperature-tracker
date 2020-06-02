@@ -1,0 +1,10 @@
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.checkbox > * {
+  margin-top: 6px;
+}
