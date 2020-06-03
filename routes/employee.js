@@ -1,27 +1,14 @@
 const express = require("express");
-const employeeRouter = express.Router();
-const Employee = require("../model/Employee");
+const router = express.Router();
+const { Employee } = require("../model/Employee");
 
-//Create
-Employee.post("/", (req, res) => {
-  const employeee = new Employee(req.body);
-  employeee.save((err, document) => {
-    if (err)
-      res.status(500).json({
-        message: {
-          msgBody: "Unable to create data",
-          msgError: true,
-        },
-      });
-    else {
-      res.status(200).json({
-        message: {
-          msgBody: "Successfully add the data",
-          msgError: false,
-        },
-      });
-    }
+router.post("/uploadData", (req, res) => {
+  const employee = new Employee(req.body);
+
+  employee.save((err) => {
+    if (err) return res.status(400).json({ success: false, err });
+    return res.status(200).json({ success: true });
   });
 });
 
-module.exports = employeeRouter;
+module.exports = router;

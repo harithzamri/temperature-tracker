@@ -1,31 +1,31 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
-const bodyParser = required("body-parser");
+
+require("dotenv").config();
 
 const app = express();
-app.use(bodyParser.json());
-
-//routes
-const employee = require("./routes/employee");
-app.use("/employee", employee);
-
-mongoose.connect(
-  "mongodb://localhost:27017/mernstack",
-  {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-  },
-  (err) => {
-    if (err) {
-      process.exit(1);
-      console.log("unable to connect database");
-    } else {
-      console.log("succesfully connected to the database");
-    }
-  }
-);
-
 const port = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(express.json());
+
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection establised successfully");
+});
+
+const employeeRouter = require("./routes/employee");
+
+app.use("/employee", employeeRouter);
+
 app.listen(port, () => {
-  console.log("app is running");
+  console.log(`Server is running on port: ${port}`);
 });

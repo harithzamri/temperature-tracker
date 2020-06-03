@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Body.module.css";
+import Axios from "axios";
 
 function Body() {
   const [EmployeeId, setEmployeeId] = useState("");
@@ -14,6 +15,23 @@ function Body() {
     if (!EmployeeId || !Temperature || !Symptom || !Shift) {
       return alert("please complete the form first");
     }
+
+    const variables = {
+      EmployeeId,
+      Temperature,
+      Symptom,
+      shift,
+    };
+
+    Axios.post("http://localhost:5000/employee/uploadData", variables).then(
+      (response) => {
+        if (response.data.success) {
+          alert("You already submit the form");
+        } else {
+          alert("falied");
+        }
+      }
+    );
   }
 
   const symptom = [
@@ -27,6 +45,18 @@ function Body() {
     { id: 1, name: "Morning" },
     { id: 2, name: "Night" },
   ];
+
+  const symptomchecked = symptom.map((symptom) => (
+    <label className="checkbox">
+      <input
+        type="checkbox"
+        value={symptom.name}
+        key={symptom.id}
+        onChange={(e) => setSymptom(e.target.value)}
+      />
+      {symptom.name}
+    </label>
+  ));
 
   return (
     <div>
@@ -51,19 +81,7 @@ function Body() {
             value={Temperature}
           />
         </div>
-        <div className={styles["checkbox"]}>
-          {symptom.map((symptom) => (
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                value={symptom.name}
-                key={symptom.id}
-                onChange={(e) => setSymptom(e.target.value)}
-              />
-              {symptom.name}
-            </label>
-          ))}
-        </div>
+        <div className={styles["checkbox"]}>{symptomchecked}</div>
         <label className="label">Shift</label>
         <div className="control">
           {shift.map((shift) => (
