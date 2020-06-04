@@ -11,4 +11,13 @@ router.post("/uploadData", (req, res) => {
   });
 });
 
+router.get("/employee_id", (req, res) => {
+  Employee.find({ _employeeid: { $in: employeeId } })
+    .populate("EmployeeId")
+    .exec((err, employee) => {
+      if (err) return req.status(400).send(err);
+      return res.status(200).send(employee);
+    });
+});
+
 module.exports = router;

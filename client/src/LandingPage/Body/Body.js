@@ -46,17 +46,24 @@ function Body() {
     { id: 2, name: "Night" },
   ];
 
-  const symptomchecked = symptom.map((symptom) => (
-    <label className="checkbox">
-      <input
-        type="checkbox"
-        value={symptom.name}
-        key={symptom.id}
-        onChange={(e) => setSymptom(e.target.value)}
-      />
-      {symptom.name}
-    </label>
-  ));
+  const symptomchecked = symptom.map((symptom) => {
+    return (
+      <label className="checkbox">
+        <input
+          type="checkbox"
+          checked={Symptom ? Symptom === symptom.name : false}
+          disabled={Symptom ? Symptom !== symptom.name : false}
+          key={symptom.id}
+          onChange={() =>
+            setSymptom((prevSymptom) =>
+              prevSymptom === symptom.name ? false : symptom.name
+            )
+          }
+        />
+        {symptom.name}
+      </label>
+    );
+  });
 
   return (
     <div>
@@ -88,6 +95,7 @@ function Body() {
             <label className="radio">
               <input
                 type="radio"
+                checked={Shift ? Shift === shift.name : false}
                 key={shift.id}
                 name="answer"
                 value={shift.name}
