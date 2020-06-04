@@ -11,13 +11,12 @@ router.post("/uploadData", (req, res) => {
   });
 });
 
-router.get("/employee_id", (req, res) => {
-  Employee.find({ _employeeid: { $in: employeeId } })
+router.get("/getEmployee", (req, res) => {
+  Employee.find()
     .populate("EmployeeId")
     .exec((err, employee) => {
-      if (err) return req.status(400).send(err);
-      return res.status(200).send(employee);
+      if (err) return res.status(400).send(err);
+      res.status(200).json({ success: true, employee });
     });
 });
-
 module.exports = router;

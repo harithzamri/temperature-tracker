@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Body.module.css";
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
-function Body() {
+function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState("Healthy");
@@ -27,6 +28,7 @@ function Body() {
       (response) => {
         if (response.data.success) {
           alert("You already submit the form");
+          props.history.push(`/employee/${EmployeeId}`);
         } else {
           alert("falied");
         }
@@ -106,8 +108,11 @@ function Body() {
           ))}
         </div>
         <div>
-          <div className="buttons">
-            <button className="button is-primary" onClick={onSubmit}>
+          <div className={`buttons ${styles["button-display"]}`}>
+            <button
+              className="button is-medium is-fullwidth is-primary"
+              onClick={onSubmit}
+            >
               Save
             </button>
           </div>
@@ -117,4 +122,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default withRouter(Body);
