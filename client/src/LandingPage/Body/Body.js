@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styles from "./Body.module.css";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState("Healthy");
   const [Shift, setShift] = useState("Morning");
+  const notify = () => toast("Success");
 
   function onSubmit(e) {
     e.preventDefault();
@@ -27,7 +29,7 @@ function Body(props) {
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
       (response) => {
         if (response.data.success) {
-          alert("You already submit the form");
+          //alert("You already submit the form");
           props.history.push(`/employee/${EmployeeId}`);
         } else {
           alert("falied");
@@ -111,10 +113,11 @@ function Body(props) {
           <div className={`buttons ${styles["button-display"]}`}>
             <button
               className="button is-medium is-fullwidth is-primary"
-              onClick={onSubmit}
+              onClick={notify}
             >
               Save
             </button>
+            <ToastContainer />
           </div>
         </div>
       </form>
