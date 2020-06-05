@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../LandingPage/NavBar/NavBar";
 import Result from "./Result/Result";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import styles from "./History.module.css";
 
 function History(props) {
@@ -23,7 +24,9 @@ function History(props) {
   }, []);
   return (
     <div className={styles["history"]}>
-      <NavBar />
+      <Link to="/">
+        <NavBar />
+      </Link>
       <div>Employee ID: {EmployeeId}</div>
       <hr />
 

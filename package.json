@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "backend": "nodemon ./index.js",
-    "frontend": "npm run start --prefix client",
-    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
+    "start": "node index",
+    "client": "cd client && npm run start",
+    "server": "nodemon index --ignore client/",
+    "client-install": "cd client && npm install",
+    "server-install": "npm install",
+    "install-all": "concurrently \"npm run client-install\" \"npm run server-install\"",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
