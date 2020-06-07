@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../LandingPage/NavBar/NavBar";
 import Result from "./Result/Result";
-import axios from "axios";
+import Axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./History.module.css";
 
@@ -11,16 +11,16 @@ function History(props) {
   const [Details, setDetails] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/employee/employee_by_id?id=${EmployeeId}`)
-      .then((response) => {
-        if (response.data.success) {
-          console.log(response.data.employee);
-          setDetails(response.data.employee);
-        } else {
-          alert("failed to get employeedetails");
-        }
-      });
+    Axios.get(
+      `http://localhost:5000/employee/employee_by_id?id=${EmployeeId}`
+    ).then((response) => {
+      if (response.data.success) {
+        console.log(response.data.employee);
+        setDetails(response.data.employee);
+      } else {
+        alert("failed to get employeedetails");
+      }
+    });
   }, []);
   return (
     <div className={styles["history"]}>
