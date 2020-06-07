@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import styles from "./Body.module.css";
+import Axios from "axios";
+import { withRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
-function Body() {
+function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState("Healthy");
   const [Shift, setShift] = useState("Morning");
+  const notify = () => toast("Success");
 
   function onSubmit(e) {
     e.preventDefault();
@@ -14,6 +18,24 @@ function Body() {
     if (!EmployeeId || !Temperature || !Symptom || !Shift) {
       return alert("please complete the form first");
     }
+
+    const variables = {
+      EmployeeId,
+      Temperature,
+      Symptom,
+      shift,
+    };
+
+    Axios.post("http://localhost:5000/employee/uploadData", variables).then(
+      (response) => {
+        if (response.data.success) {
+          //alert("You already submit the form");
+          props.history.push(`/employee/${EmployeeId}`);
+        } else {
+          alert("falied");
+        }
+      }
+    );
   }
 
   const symptom = [
@@ -27,6 +49,25 @@ function Body() {
     { id: 1, name: "Morning" },
     { id: 2, name: "Night" },
   ];
+
+  const symptomchecked = symptom.map((symptom) => {
+    return (
+      <label className="checkbox">
+        <input
+          type="checkbox"
+          checked={Symptom ? Symptom === symptom.name : false}
+          disabled={Symptom ? Symptom !== symptom.name : false}
+          key={symptom.id}
+          onChange={() =>
+            setSymptom((prevSymptom) =>
+              prevSymptom === symptom.name ? false : symptom.name
+            )
+          }
+        />
+        {symptom.name}
+      </label>
+    );
+  });
 
   return (
     <div>
@@ -51,25 +92,14 @@ function Body() {
             value={Temperature}
           />
         </div>
-        <div className={styles["checkbox"]}>
-          {symptom.map((symptom) => (
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                value={symptom.name}
-                key={symptom.id}
-                onChange={(e) => setSymptom(e.target.value)}
-              />
-              {symptom.name}
-            </label>
-          ))}
-        </div>
+        <div className={styles["checkbox"]}>{symptomchecked}</div>
         <label className="label">Shift</label>
         <div className="control">
           {shift.map((shift) => (
             <label className="radio">
               <input
                 type="radio"
+                checked={Shift ? Shift === shift.name : false}
                 key={shift.id}
                 name="answer"
                 value={shift.name}
@@ -80,10 +110,14 @@ function Body() {
           ))}
         </div>
         <div>
-          <div className="buttons">
-            <button className="button is-primary" onClick={onSubmit}>
+          <div className={`buttons ${styles["button-display"]}`}>
+            <button
+              className="button is-medium is-fullwidth is-primary"
+              onClick={notify}
+            >
               Save
             </button>
+            <ToastContainer />
           </div>
         </div>
       </form>
@@ -91,4 +125,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default withRouter(Body);

@@ -18,6 +18,10 @@ const EmployeeSchema = new Schema({
     type: String,
     default: "Morning",
   },
+  Date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
