@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
-  const [Symptom, setSymptom] = useState("Healthy");
+  const [Symptom, setSymptom] = useState([]);
   const [Shift, setShift] = useState("Morning");
   const notify = () => toast("Success");
 
@@ -22,7 +22,7 @@ function Body(props) {
     const variables = {
       EmployeeId,
       Temperature,
-      Symptom,
+      //Symptom,
       shift,
     };
 
@@ -50,19 +50,27 @@ function Body(props) {
     { id: 2, name: "Night" },
   ];
 
+  const handleToggle = (value) => {
+    const currentIndex = Symptom.indexOf(value);
+    const newChecked = [...Symptom];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    console.log(newChecked);
+    setSymptom(newChecked);
+  };
+
   const symptomchecked = symptom.map((symptom) => {
     return (
       <label className="checkbox">
         <input
           type="checkbox"
-          checked={Symptom ? Symptom === symptom.name : false}
-          disabled={Symptom ? Symptom !== symptom.name : false}
+          checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
           key={symptom.id}
-          onChange={() =>
-            setSymptom((prevSymptom) =>
-              prevSymptom === symptom.name ? false : symptom.name
-            )
-          }
+          onChange={() => handleToggle(symptom.id)}
         />
         {symptom.name}
       </label>

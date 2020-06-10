@@ -15,7 +15,13 @@ function History(props) {
       `http://localhost:5000/employee/employee_by_id?id=${EmployeeId}`
     ).then((response) => {
       if (response.data.success) {
-        console.log(response.data.employee);
+        var data = [];
+        var length = 3;
+        for (let i = 0; i < length; i++) {
+          data.push(response.data.employee);
+        }
+
+        console.log(data);
         setDetails(response.data.employee);
       } else {
         alert("failed to get employeedetails");
