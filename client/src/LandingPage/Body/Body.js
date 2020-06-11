@@ -3,23 +3,25 @@ import styles from "./Body.module.css";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState([]);
   const [Shift, setShift] = useState("Morning");
+  const { register, handleSubmit, errors } = useForm();
   const notify = () => toast("Success");
-  // const notnotify = () => toast("Failed");
+  const notnotify = () => toast("Failed");
+  const result =
+    !EmployeeId || !Temperature || !Symptom || !Shift ? notnotify : notify;
 
-  //const result = false ? notify : notnotify;
+  const limit =
+    Temperature >= 36 && Temperature <= 38
+      ? null
+      : " Your range of temperature must between 36-38";
   function onSubmit(e) {
-    e.preventDefault();
     console.log(EmployeeId, Temperature, Symptom, Shift);
-
-    if (!EmployeeId || !Temperature || !Symptom || !Shift) {
-      return alert("please complete the form first");
-    }
 
     const variables = {
       EmployeeId,
@@ -80,7 +82,7 @@ function Body(props) {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="label">EmployeeID</label>
         <div className="control">
           <input
@@ -89,9 +91,14 @@ function Body(props) {
             placeholder="Employee ID"
             onChange={(e) => setEmployeeId(e.target.value)}
             value={EmployeeId}
-            required
+            name="Employee"
+            ref={register({ required: true })}
           />
+          {errors.Employee && (
+            <p className="help is-danger">Employee ID required</p>
+          )}
         </div>
+
         <label className="label">Temperature</label>
         <div className="control">
           <input
@@ -100,8 +107,13 @@ function Body(props) {
             placeholder="Temperature"
             onChange={(e) => setTemperature(e.target.value)}
             value={Temperature}
-            required
+            ref={register({ required: true })}
+            name="Temperature"
           />
+          {errors.Temperature && (
+            <p className="help is-danger">Temperature is Required</p>
+          )}
+          <p className="help is-danger">{limit}</p>
         </div>
         <div className={styles["checkbox"]}>{symptomchecked}</div>
         <label className="label">Shift</label>
@@ -125,7 +137,8 @@ function Body(props) {
           <div className={`buttons ${styles["button-display"]}`}>
             <button
               className="button is-medium is-fullwidth is-primary"
-              onClick={notify}
+              type="submit"
+              onClick={result}
             >
               Save
             </button>
