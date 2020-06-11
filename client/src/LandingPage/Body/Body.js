@@ -10,7 +10,9 @@ function Body(props) {
   const [Symptom, setSymptom] = useState([]);
   const [Shift, setShift] = useState("Morning");
   const notify = () => toast("Success");
+  // const notnotify = () => toast("Failed");
 
+  //const result = false ? notify : notnotify;
   function onSubmit(e) {
     e.preventDefault();
     console.log(EmployeeId, Temperature, Symptom, Shift);
@@ -23,13 +25,12 @@ function Body(props) {
       EmployeeId,
       Temperature,
       //Symptom,
-      shift,
+      Shift,
     };
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
       (response) => {
         if (response.data.success) {
-          //alert("You already submit the form");
           props.history.push(`/employee/${EmployeeId}`);
         } else {
           alert("falied");
@@ -88,6 +89,7 @@ function Body(props) {
             placeholder="Employee ID"
             onChange={(e) => setEmployeeId(e.target.value)}
             value={EmployeeId}
+            required
           />
         </div>
         <label className="label">Temperature</label>
@@ -98,6 +100,7 @@ function Body(props) {
             placeholder="Temperature"
             onChange={(e) => setTemperature(e.target.value)}
             value={Temperature}
+            required
           />
         </div>
         <div className={styles["checkbox"]}>{symptomchecked}</div>
@@ -112,6 +115,7 @@ function Body(props) {
                 name="answer"
                 value={shift.name}
                 onChange={(e) => setShift(e.target.value)}
+                required
               />
               {shift.name}
             </label>

@@ -16,6 +16,7 @@ router.get("/employee_by_id", (req, res) => {
 
   //we need to find the product information that belong to product Id
   Employee.find({ EmployeeId: { $in: employeeIds } })
+    .sort({ _id: -1 })
     .populate("writer")
     .exec((err, employee) => {
       if (err) {

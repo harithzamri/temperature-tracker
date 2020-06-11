@@ -15,13 +15,7 @@ function History(props) {
       `http://localhost:5000/employee/employee_by_id?id=${EmployeeId}`
     ).then((response) => {
       if (response.data.success) {
-        var data = [];
-        var length = 3;
-        for (let i = 0; i < length; i++) {
-          data.push(response.data.employee);
-        }
-
-        console.log(data);
+        console.log("response", response.data.employee);
         setDetails(response.data.employee);
       } else {
         alert("failed to get employeedetails");
@@ -41,7 +35,7 @@ function History(props) {
           <strong>Your Past Temperature</strong>
         </span>
 
-        {Details.map((details) => (
+        {Details.slice(0, 3).map((details) => (
           <Result temperature={details.Temperature} date={details.Date} />
         ))}
       </div>
