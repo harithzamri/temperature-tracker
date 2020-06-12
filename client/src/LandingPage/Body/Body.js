@@ -30,15 +30,16 @@ function Body(props) {
       Shift,
     };
 
-    Axios.post("http://localhost:5000/employee/uploadData", variables).then(
-      (response) => {
-        if (response.data.success) {
-          props.history.push(`/employee/${EmployeeId}`);
-        } else {
-          alert("falied");
-        }
+    Axios.post(
+      "https://rocky-plains-03473.herokuapp/employee/uploadData",
+      variables
+    ).then((response) => {
+      if (response.data.success) {
+        props.history.push(`/employee/${EmployeeId}`);
+      } else {
+        alert("falied");
       }
-    );
+    });
   }
 
   const symptom = [

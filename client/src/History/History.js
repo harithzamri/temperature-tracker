@@ -12,7 +12,7 @@ function History(props) {
 
   useEffect(() => {
     Axios.get(
-      `http://localhost:5000/employee/employee_by_id?id=${EmployeeId}`
+      `https://rocky-plains-03473.herokuapp/employee/employee_by_id?id=${EmployeeId}`
     ).then((response) => {
       if (response.data.success) {
         console.log("response", response.data.employee);
