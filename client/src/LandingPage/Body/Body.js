@@ -17,7 +17,7 @@ function Body(props) {
     !EmployeeId || !Temperature || !Symptom || !Shift ? notnotify : notify;
 
   const limit =
-    Temperature >= 36 && Temperature <= 38
+    Temperature >= 35.5 && Temperature <= 38
       ? null
       : " Your range of temperature must between 36-38";
   function onSubmit(e) {
@@ -30,16 +30,15 @@ function Body(props) {
       Shift,
     };
 
-    Axios.post(
-      "https://rocky-plains-03473.herokuapp/employee/uploadData",
-      variables
-    ).then((response) => {
-      if (response.data.success) {
-        props.history.push(`/employee/${EmployeeId}`);
-      } else {
-        alert("falied");
+    Axios.post("http://localhost:5000/employee/uploadData", variables).then(
+      (response) => {
+        if (response.data.success) {
+          props.history.push(`/employee/${EmployeeId}`);
+        } else {
+          alert("falied");
+        }
       }
-    });
+    );
   }
 
   const symptom = [
