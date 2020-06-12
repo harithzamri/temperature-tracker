@@ -19,7 +19,7 @@ function Body(props) {
   const limit =
     Temperature >= 35.5 && Temperature <= 38
       ? null
-      : " Your range of temperature must between 36-38";
+      : " Your range of temperature must between 35.5 - 38.0";
   function onSubmit(e) {
     console.log(EmployeeId, Temperature, Symptom, Shift);
 
