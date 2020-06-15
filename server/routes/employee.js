@@ -27,4 +27,18 @@ router.get("/employee_by_id", (req, res) => {
       }
     });
 });
+
+router.get("/getbyDate", (req, res) => {
+  var datetime = new Date();
+  Employee.find({ Date: datetime })
+    .sort("writer")
+    .exec((err, employee) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send(err);
+      } else {
+        res.status(200).json({ success: true, employee });
+      }
+    });
+});
 module.exports = router;
