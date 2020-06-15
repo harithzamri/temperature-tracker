@@ -4,7 +4,7 @@ import Result from "./Result/Result";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./History.module.css";
-import { CSVLink } from "react-csv";
+
 function History(props) {
   const EmployeeId = props.match.params.employeeId;
 
@@ -22,8 +22,12 @@ function History(props) {
       }
     });
   }, []);
+  const displaybutton = Details.length ? (
+    <button className="button is-info">To view report</button>
+  ) : (
+    <div />
+  );
 
-  const data = Details;
   return (
     <div className={styles["history"]}>
       <Link to="/">
@@ -40,7 +44,7 @@ function History(props) {
           <Result temperature={details.Temperature} date={details.Date} />
         ))}
       </div>
-      <CSVLink data={data}>Download me</CSVLink>;
+      <Link to="/historydate">{displaybutton}</Link>
     </div>
   );
 }

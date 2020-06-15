@@ -32,7 +32,7 @@ router.get("/getbyDate", (req, res) => {
   var datetime = new Date().toLocaleDateString();
   console.log(new Date().toLocaleDateString());
 
-  Employee.find({})
+  Employee.find({ Date: { $gte: datetime } })
     .sort({ datefield: -1 })
     .populate("writer")
     .exec((err, employee) => {

@@ -5,6 +5,7 @@ function Result(props) {
   const properdate = new Date(props.date).toLocaleDateString();
   const time = new Date(props.date).toLocaleTimeString();
   const date = dateFormat(properdate, "fullDate");
+  
   return (
     <div className={styles["result"]}>
       <h3 className="subtitle is -3">
