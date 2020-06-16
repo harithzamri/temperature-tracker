@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CSVLink } from "react-csv";
 import "./DateHistory.css";
+import CalendarPick from "./CalendarPick/CalendarPick";
 
 function DateHistory() {
   const [DateHistory, setDateHistory] = useState([]);
@@ -20,6 +21,7 @@ function DateHistory() {
   return (
     <div className="date-align">
       <CSVLink data={DateHistory}>Generate Daily Report</CSVLink>
+      <CalendarPick />
     </div>
   );
 }

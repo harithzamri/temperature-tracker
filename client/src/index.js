@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bulma/css/bulma.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-calendar/dist/Calendar.css";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 

@@ -45,4 +45,5 @@ router.get("/getbyDate", (req, res) => {
       }
     });
 });
+
 module.exports = router;
