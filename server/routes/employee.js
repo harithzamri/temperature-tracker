@@ -46,4 +46,21 @@ router.get("/getbyDate", (req, res) => {
     });
 });
 
+router.post("/sortbyDate", (req, res) => {
+  let beginingTime = req.body.beginning;
+  let endTime = req.body.ending;
+
+  Employee.find({ Date: { $gte: beginingTime, $lt: endTime } })
+    .sort({ datefield: -1 })
+    .populate("writer")
+    .exec((err, employee) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send(err);
+      } else {
+        return res.status(200).json({ success: true, employee });
+      }
+    });
+});
+
 module.exports = router;

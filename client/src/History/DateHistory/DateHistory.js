@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CSVLink } from "react-csv";
-import "./DateHistory.css";
+import styles from "./DateHistory.module.css";
 import CalendarPick from "./CalendarPick/CalendarPick";
 
 function DateHistory() {
@@ -19,8 +19,10 @@ function DateHistory() {
   }, []);
 
   return (
-    <div className="date-align">
-      <CSVLink data={DateHistory}>Generate Daily Report</CSVLink>
+    <div className={styles["date-align"]}>
+      <CSVLink className={styles["daily-report"]} data={DateHistory}>
+        Generate Daily Report
+      </CSVLink>
       <CalendarPick />
     </div>
   );
