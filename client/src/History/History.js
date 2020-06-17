@@ -21,7 +21,7 @@ function History(props) {
         alert("failed to get employeedetails");
       }
     });
-  }, []);
+  }, [EmployeeId]);
   const displaybutton = Details.length ? (
     <button className="button is-info">To view report</button>
   ) : (

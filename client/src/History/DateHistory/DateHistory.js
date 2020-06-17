@@ -3,10 +3,11 @@ import axios from "axios";
 import { CSVLink } from "react-csv";
 import styles from "./DateHistory.module.css";
 import CalendarPick from "./CalendarPick/CalendarPick";
+import load from "../../assets/images/loading.gif";
 
 function DateHistory() {
   const [DateHistory, setDateHistory] = useState([]);
-  //console.log(new Date("2020-06-14T23:24:45.581Z").toLocaleDateString());
+
   useEffect(() => {
     axios.get("http://localhost:5000/employee/getbyDate").then((response) => {
       if (response.data.success) {
@@ -18,11 +19,19 @@ function DateHistory() {
     });
   }, []);
 
+  const generateReport = DateHistory.length ? (
+    <div className={styles["daily-report"]}>
+      <CSVLink data={DateHistory}>Generate Daily Report</CSVLink>
+    </div>
+  ) : (
+    <figure className="image is-96x96">
+      <img src={load} />
+    </figure>
+  );
+
   return (
     <div className={styles["date-align"]}>
-      <CSVLink className={styles["daily-report"]} data={DateHistory}>
-        Generate Daily Report
-      </CSVLink>
+      {generateReport}
       <CalendarPick />
     </div>
   );

@@ -1,0 +1,9 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  align-items: center;
+  margin: 1rem 0;
+}
