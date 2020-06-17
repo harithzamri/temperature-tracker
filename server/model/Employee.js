@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const EmployeeSchema = new Schema({
   EmployeeId: {
-    type: Number,
+    type: String,
     required: true,
   },
   Temperature: {

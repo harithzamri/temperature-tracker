@@ -68,15 +68,19 @@ function Body(props) {
 
   const symptomchecked = symptom.map((symptom) => {
     return (
-      <label className="checkbox">
-        <input
-          type="checkbox"
-          checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
-          key={symptom.id}
-          onChange={() => handleToggle(symptom.id)}
-        />
-        {symptom.name}
-      </label>
+      <div className="control">
+        <label className="checkbox">
+          <input
+            type="checkbox"
+            checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
+            key={symptom.id}
+            name="Disease"
+            onChange={() => handleToggle(symptom.id)}
+            ref={register({ required: true })}
+          />
+          {symptom.name}
+        </label>
+      </div>
     );
   });
 
@@ -92,10 +96,10 @@ function Body(props) {
             onChange={(e) => setEmployeeId(e.target.value)}
             value={EmployeeId}
             name="Employee"
-            ref={register({ required: true })}
+            ref={register({ required: true, pattern: /^(.{6})/i })}
           />
           {errors.Employee && (
-            <p className="help is-danger">Employee ID required</p>
+            <p className="help is-danger">Employee ID invalid</p>
           )}
         </div>
 
@@ -115,7 +119,10 @@ function Body(props) {
           )}
           <p className="help is-danger">{limit}</p>
         </div>
-        <div className={styles["checkbox"]}>{symptomchecked}</div>
+        <div className={styles["checkbox"]}>
+          {symptomchecked}
+          {errors.Disease && <p className="help is-danger">Invalid</p>}
+        </div>
         <label className="label">Shift</label>
         <div className="control">
           {shift.map((shift) => (
