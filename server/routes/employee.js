@@ -4,6 +4,7 @@ const { Employee } = require("../model/Employee");
 
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
+  // let date = req.body.date;
 
   employee.save((err) => {
     if (err) return res.status(400).json({ success: false, err });
@@ -16,7 +17,7 @@ router.get("/employee_by_id", (req, res) => {
 
   //we need to find the product information that belong to product Id
   Employee.find({ EmployeeId: { $in: employeeIds } })
-    .sort({ _id: -1 })
+    .sort({ datefield: -1 })
     .populate("writer")
     .exec((err, employee) => {
       if (err) {
@@ -49,7 +50,7 @@ router.post("/sortbyDate", (req, res) => {
   let beginingTime = req.body.beginning;
   let endTime = req.body.ending;
 
-  Employee.find({ Date: { $gte: beginingTime, $lt: endTime } })
+  Employee.findById({ Date: { $gte: beginingTime, $lt: endTime } })
     .sort({ datefield: -1 })
     .populate("writer")
     .exec((err, employee) => {

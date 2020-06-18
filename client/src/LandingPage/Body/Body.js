@@ -21,13 +21,14 @@ function Body(props) {
       ? null
       : " Your range of temperature must between 35.5 - 38.0";
   function onSubmit(e) {
-    console.log(EmployeeId, Temperature, Symptom, Shift);
-
+    //console.log(EmployeeId, Temperature, Symptom, Shift);
+    const newDate = new Date().toLocaleTimeString();
     const variables = {
       EmployeeId,
       Temperature,
       //Symptom,
       Shift,
+      // date: newDate,
     };
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
@@ -111,6 +112,7 @@ function Body(props) {
             placeholder="Temperature"
             onChange={(e) => setTemperature(e.target.value)}
             value={Temperature}
+            step="0.01"
             ref={register({ required: true })}
             name="Temperature"
           />
