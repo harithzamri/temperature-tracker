@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./SuccessPage.module.css";
+import axios from "axios";
 
 function SuccessPage() {
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/employee/checkexisting")
+      .then((response) => {
+        console.log(response.data.employee);
+      });
+  }, []);
+
   return (
     <div className={styles["success"]}>
       <span className="icon has-text-success">

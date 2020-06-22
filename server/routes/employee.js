@@ -63,4 +63,14 @@ router.post("/sortbyDate", (req, res) => {
     });
 });
 
+router.get("/checkexisting", (req, res) => {
+  Employee.exists({ EmployeeId: 191362 }, function (err, employee) {
+    if (err) {
+      console.log("false");
+    } else {
+      return res.status(200).json({ success: true, employee });
+    }
+  });
+});
+
 module.exports = router;
