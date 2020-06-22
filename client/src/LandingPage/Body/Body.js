@@ -49,6 +49,7 @@ function Body(props) {
     { id: 2, name: "Fever" },
     { id: 3, name: "Difficult to breath" },
     { id: 4, name: "Cough" },
+    { id: 5, name: "Travel History" },
   ];
 
   const shift = [
