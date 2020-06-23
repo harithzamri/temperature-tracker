@@ -4,11 +4,23 @@ const { Employee } = require("../model/Employee");
 
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
-  let date = req.body.date;
-  console.log(date);
-  employee.save((err) => {
-    if (err) return res.status(400).json({ success: false, err });
-    return res.status(200).json({ success: true });
+  let employeeid = req.body.EmployeeId;
+  console.log(employeeid);
+
+  var date = new Date().toLocaleDateString();
+
+  Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (
+    err,
+    result
+  ) {
+    if (result) {
+      return res.status(200).json({ success: false });
+    } else {
+      employee.save((err) => {
+        if (err) return res.status(400).json({ success: false, err });
+        return res.status(200).json({ success: true });
+      });
+    }
   });
 });
 
@@ -61,16 +73,6 @@ router.post("/sortbyDate", (req, res) => {
         return res.status(200).json({ success: true, employee });
       }
     });
-});
-
-router.get("/checkexisting", (req, res) => {
-  Employee.exists({ EmployeeId: 191362 }, function (err, employee) {
-    if (err) {
-      console.log("false");
-    } else {
-      return res.status(200).json({ success: true, employee });
-    }
-  });
 });
 
 module.exports = router;

@@ -24,13 +24,12 @@ function Body(props) {
       : " Your range of temperature must between 35.5 - 38.0";
   function onSubmit(e) {
     //console.log(EmployeeId, Temperature, Symptom, Shift);
-    const newDate = new Date().toLocaleDateString();
+
     const variables = {
       EmployeeId,
       Temperature,
       //Symptom,
       Shift,
-      date: newDate,
     };
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
@@ -38,7 +37,7 @@ function Body(props) {
         if (response.data.success) {
           props.history.push("/successPage");
         } else {
-          alert("falied");
+          alert("you already log in for today");
         }
       }
     );
@@ -49,7 +48,8 @@ function Body(props) {
     { id: 2, name: "Fever" },
     { id: 3, name: "Difficult to breath" },
     { id: 4, name: "Cough" },
-    { id: 5, name: "Travel History" },
+    { id: 5, name: "History Travel to Redzone" },
+    { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
   ];
 
   const shift = [
@@ -154,7 +154,7 @@ function Body(props) {
             >
               Save
             </button>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </div>
         </div>
       </form>
