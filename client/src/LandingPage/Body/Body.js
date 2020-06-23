@@ -35,7 +35,10 @@ function Body(props) {
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
       (response) => {
         if (response.data.success) {
-          props.history.push("/successPage");
+          props.history.push({
+            pathname: "/successPage",
+            EmployeeId,
+          });
         } else {
           alert("you already log in for today");
         }
