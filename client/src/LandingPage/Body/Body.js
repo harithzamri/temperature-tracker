@@ -11,12 +11,10 @@ function Body(props) {
   const [Symptom, setSymptom] = useState([]);
   const [Shift, setShift] = useState("Morning");
   const { register, handleSubmit, errors } = useForm();
-  const notify = () => toast("Success");
-  const notnotify = () => toast("Failed");
-  const result =
-    !EmployeeId || !Temperature || !Symptom || !Shift || Boolean(limit)
-      ? notnotify
-      : notify;
+  // const notify = () => toast("Success");
+  // const notnotify = () => toast("Failed");
+  // const result =
+  //   !EmployeeId || !Temperature || !Symptom || !Shift ? notnotify : notify;
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38
@@ -39,8 +37,28 @@ function Body(props) {
             pathname: "/successPage",
             EmployeeId,
           });
+          return toast.success("Success", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
-          alert("you already log in for today");
+          return toast.error(
+            "You already Login for today, try Again tomorrow",
+            {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }
+          );
         }
       }
     );
@@ -153,11 +171,10 @@ function Body(props) {
             <button
               className="button is-medium is-fullwidth is-primary"
               type="submit"
-              onClick={result}
             >
               Save
             </button>
-            {/* <ToastContainer /> */}
+            <ToastContainer />
           </div>
         </div>
       </form>
