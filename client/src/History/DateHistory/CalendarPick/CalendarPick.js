@@ -38,7 +38,7 @@ function CalendarPick() {
     </CSVLink>
   ) : (
     <figure className="image is-96x96">
-      <img src={load} />
+      <img src={load} alt="figure" />
     </figure>
   );
 

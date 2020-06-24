@@ -25,7 +25,7 @@ function DateHistory() {
     </div>
   ) : (
     <figure className="image is-96x96">
-      <img src={load} />
+      <img src={load} alt={load} />
     </figure>
   );
 

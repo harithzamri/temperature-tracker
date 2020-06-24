@@ -96,13 +96,14 @@ function Body(props) {
       <div className="control">
         <label className="checkbox">
           <input
+            className="test"
             type="checkbox"
             checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
             key={symptom.id}
             name="Disease"
             onChange={() => handleToggle(symptom.id)}
             ref={register({ required: true })}
-          />
+          />{" "}
           {symptom.name}
         </label>
       </div>
