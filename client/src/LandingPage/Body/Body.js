@@ -4,6 +4,7 @@ import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import Leave from "./Leave/Leave";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
@@ -110,6 +111,10 @@ function Body(props) {
     );
   });
 
+  const onLeave = (e) => {
+    console.log(e);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -150,6 +155,8 @@ function Body(props) {
           {symptomchecked}
           {errors.Disease && <p className="help is-danger">Invalid</p>}
         </div>
+        <Leave leave={onLeave} />
+
         <label className="label">Shift</label>
         <div className="control">
           {shift.map((shift) => (
@@ -167,6 +174,7 @@ function Body(props) {
             </label>
           ))}
         </div>
+
         <div>
           <div className={`buttons ${styles["button-display"]}`}>
             <button
