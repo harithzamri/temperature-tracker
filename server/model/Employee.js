@@ -14,6 +14,10 @@ const EmployeeSchema = new Schema({
     type: String,
     default: "Healthy",
   },
+  Leave: {
+    type: String,
+    default: "None",
+  },
   Shift: {
     type: String,
     default: "Morning",

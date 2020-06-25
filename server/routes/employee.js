@@ -5,7 +5,8 @@ const { Employee } = require("../model/Employee");
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
   let employeeid = req.body.EmployeeId;
-  console.log(employeeid);
+  let leave = req.body.Leaves;
+  console.log(employee);
 
   var date = new Date().toLocaleDateString();
 

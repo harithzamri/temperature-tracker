@@ -4,13 +4,13 @@ import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import Leave from "./Leave/Leave";
+import LeaveComponent from "./LeaveComponent/LeaveComponent";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState([]);
-  const [Leaves, setLeaves] = useState([]);
+  const [Leaves, setLeaves] = useState("None");
   const [Shift, setShift] = useState("Morning");
   const [ShowMore, setShowMore] = useState(false);
   const { register, handleSubmit, errors } = useForm();
@@ -19,12 +19,13 @@ function Body(props) {
     Temperature >= 35.5 && Temperature <= 38
       ? null
       : " Your range of temperature must between 35.5 - 38.0";
-  function onSubmit(e) {
+  function onSubmit() {
     const variables = {
       EmployeeId,
       Temperature,
       //Symptom,
       Shift,
+      Leave: Leaves,
     };
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
@@ -89,7 +90,8 @@ function Body(props) {
   };
 
   const onLeave = (e) => {
-    console.log(e);
+    setLeaves(e);
+    console.log(Leaves);
   };
 
   const numberOfItems = ShowMore ? symptom.length : 3;
@@ -163,9 +165,10 @@ function Body(props) {
           >
             Show {message}
           </button>
+
           {errors.Disease && <p className="help is-danger">Invalid</p>}
         </div>
-        <Leave leave={onLeave} />
+        <LeaveComponent leave={onLeave} />
 
         <label className="label">Shift</label>
         <div className="control">
