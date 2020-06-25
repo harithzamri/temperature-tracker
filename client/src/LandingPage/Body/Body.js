@@ -10,20 +10,16 @@ function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState([]);
+  const [Leaves, setLeaves] = useState([]);
   const [Shift, setShift] = useState("Morning");
+  const [ShowMore, setShowMore] = useState(false);
   const { register, handleSubmit, errors } = useForm();
-  // const notify = () => toast("Success");
-  // const notnotify = () => toast("Failed");
-  // const result =
-  //   !EmployeeId || !Temperature || !Symptom || !Shift ? notnotify : notify;
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38
       ? null
       : " Your range of temperature must between 35.5 - 38.0";
   function onSubmit(e) {
-    //console.log(EmployeeId, Temperature, Symptom, Shift);
-
     const variables = {
       EmployeeId,
       Temperature,
@@ -49,7 +45,7 @@ function Body(props) {
           });
         } else {
           return toast.error(
-            "You already Login for today, try Again tomorrow",
+            "You already Login for today, try again tomorrow",
             {
               position: "top-right",
               autoClose: 3000,
@@ -92,7 +88,18 @@ function Body(props) {
     setSymptom(newChecked);
   };
 
-  const symptomchecked = symptom.map((symptom) => {
+  const onLeave = (e) => {
+    console.log(e);
+  };
+
+  const numberOfItems = ShowMore ? symptom.length : 3;
+  const message = ShowMore ? "Less" : "More";
+
+  const handleClick = () => {
+    setShowMore(!ShowMore);
+  };
+
+  const symptomchecked = symptom.slice(0, numberOfItems).map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
@@ -110,10 +117,6 @@ function Body(props) {
       </div>
     );
   });
-
-  const onLeave = (e) => {
-    console.log(e);
-  };
 
   return (
     <div>
@@ -153,6 +156,13 @@ function Body(props) {
         </div>
         <div className={styles["checkbox"]}>
           {symptomchecked}
+
+          <button
+            className={`button is-white is-small ${styles["show-more"]}`}
+            onClick={() => handleClick()}
+          >
+            Show {message}
+          </button>
           {errors.Disease && <p className="help is-danger">Invalid</p>}
         </div>
         <Leave leave={onLeave} />
