@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200;1,400&display=swap");
+
+.main-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "Nunito", sans-serif;
+}
+
+.group-buttons > * {
+  margin: 10rem 1rem;
+}

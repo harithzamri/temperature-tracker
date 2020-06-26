@@ -4,11 +4,13 @@ import History from "./History/History";
 import { Switch, Route } from "react-router-dom";
 import DateHistory from "./History/DateHistory/DateHistory";
 import SuccessPage from "./SuccessPage/SuccessPage";
+import MainPage from "./LandingPage/MainPage/MainPage";
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={LandingPage} />
+      <Route exact path="/mainmenu" component={MainPage} />
       <Route exact path="/employee/:employeeId" component={History} />
       <Route exact path="/historydate" component={DateHistory} />
       <Route exact path="/successPage" component={SuccessPage} />
