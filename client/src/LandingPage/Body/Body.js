@@ -25,7 +25,7 @@ function Body(props) {
       Temperature,
       //Symptom,
       Shift,
-      Leave: Leaves,
+      // Leave: Leaves,
     };
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
@@ -96,6 +96,7 @@ function Body(props) {
 
   const numberOfItems = ShowMore ? symptom.length : 3;
   const message = ShowMore ? "Less" : "More";
+  const textbox = ShowMore ? <input className="input" type="text" /> : null;
 
   const handleClick = () => {
     setShowMore(!ShowMore);
@@ -158,7 +159,7 @@ function Body(props) {
         </div>
         <div className={styles["checkbox"]}>
           {symptomchecked}
-
+          {textbox}
           <button
             className={`button is-white is-small ${styles["show-more"]}`}
             onClick={() => handleClick()}
