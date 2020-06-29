@@ -96,7 +96,16 @@ function Body(props) {
 
   const numberOfItems = ShowMore ? symptom.length : 3;
   const message = ShowMore ? "Less" : "More";
-  const textbox = ShowMore ? <input className="input" type="text" /> : null;
+  const textbox = ShowMore ? (
+    <div className="label">
+      <input className="input" type="text" />
+
+      <p className="help is-danger">
+        Please state history travel if you have to and relation on the
+        suspected/confirmed Covid-19 patient
+      </p>
+    </div>
+  ) : null;
 
   const handleClick = () => {
     setShowMore(!ShowMore);
@@ -160,6 +169,7 @@ function Body(props) {
         <div className={styles["checkbox"]}>
           {symptomchecked}
           {textbox}
+
           <button
             className={`button is-white is-small ${styles["show-more"]}`}
             onClick={() => handleClick()}
