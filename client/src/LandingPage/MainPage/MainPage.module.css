@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Spectral:wght@200&display=swap");
 
 .main-page {
   display: flex;
@@ -7,9 +7,18 @@
 }
 
 .title {
-  font-family: "Nunito", sans-serif;
+  font-family: "Spectral", serif;
+  margin-top: 1rem;
+}
+
+.sub-title {
+  font-family: "Spectral", serif;
+  font-size: large !important;
+  font-weight: 600 !important;
+  text-align: center;
+  margin-top: 3rem;
 }
 
 .group-buttons > * {
-  margin: 10rem 1rem;
+  margin: 5rem 1rem;
 }

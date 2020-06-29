@@ -101,8 +101,8 @@ function Body(props) {
       <input className="input" type="text" />
 
       <p className="help is-danger">
-        Please state history travel if you have to and relation on the
-        suspected/confirmed Covid-19 patient
+        Please state history travel if you went to Redzone Area and relation on
+        the suspected/confirmed Covid-19 patient
       </p>
     </div>
   ) : null;

@@ -21,8 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const employeeRouter = require("./routes/employee");
+// const vendorRouter = require("./routes/vendor");
 
 app.use("/employee", employeeRouter);
+// app.use("/vendor", vendorRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
