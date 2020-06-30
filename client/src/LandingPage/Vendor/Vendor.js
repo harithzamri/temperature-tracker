@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Vendor.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import NavBar from "../NavBar/NavBar";
 
 function Vendor() {
@@ -10,8 +9,11 @@ function Vendor() {
   const [Symptom, setSymptom] = useState([]);
   const [Company, setCompany] = useState("");
   const [Phone, setPhone] = useState("");
+  const [ShowMore, setShowMore] = useState(false);
 
-  useEffect(() => {}, []);
+  function onSubmit(e) {
+    e.preventDefault();
+  }
 
   const symptom = [
     { id: 1, name: "Healthy" },
@@ -22,7 +24,37 @@ function Vendor() {
     { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
   ];
 
-  const symptomchecked = symptom.map((symptom) => {
+  const handleToggle = (value) => {
+    const currentIndex = Symptom.indexOf(value);
+    const newChecked = [...Symptom];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    console.log(newChecked);
+    setSymptom(newChecked);
+  };
+
+  const numberOfItems = ShowMore ? symptom.length : 3;
+  const message = ShowMore ? "Less" : "More";
+  const textbox = ShowMore ? (
+    <div className="label">
+      <input className="input" type="text" />
+
+      <p className="help is-danger">
+        Please state history travel if you went to Redzone Area and relation on
+        the suspected/confirmed Covid-19 patient
+      </p>
+    </div>
+  ) : null;
+
+  const handleClick = () => {
+    setShowMore(!ShowMore);
+  };
+
+  const symptomchecked = symptom.slice(0, numberOfItems).map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
@@ -32,7 +64,7 @@ function Vendor() {
             checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
             key={symptom.id}
             name="Disease"
-            onChange
+            onChange={() => handleToggle(symptom.id)}
           />{" "}
           {symptom.name}
         </label>
@@ -43,7 +75,7 @@ function Vendor() {
   return (
     <div className={styles["vendor"]}>
       <NavBar />
-      <form onSubmit>
+      <form onSubmit={onSubmit}>
         <label className="label">Vendor Name</label>
         <div className="control">
           <input
@@ -93,7 +125,27 @@ function Vendor() {
           />
         </div>
 
-        <div className="checkbox">{symptomchecked}</div>
+        <div className={styles["checkbox"]}>
+          {symptomchecked}
+          {textbox}
+          <button
+            className={`button is-white is-small ${styles["show-more"]}`}
+            onClick={() => handleClick()}
+          >
+            Show {message}
+          </button>
+        </div>
+
+        <div>
+          <div className={`buttons ${styles["button-display"]}`}>
+            <button
+              className="button is-medium is-fullwidth is-primary"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
