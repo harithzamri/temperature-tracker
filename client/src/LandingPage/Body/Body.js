@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import LeaveComponent from "./LeaveComponent/LeaveComponent";
+import NavBar from "../NavBar/NavBar";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
@@ -131,7 +132,8 @@ function Body(props) {
   });
 
   return (
-    <div>
+    <div className={styles["body"]}>
+      <NavBar />
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="label">EmployeeID</label>
         <div className="control">

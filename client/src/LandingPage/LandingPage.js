@@ -2,12 +2,13 @@ import React from "react";
 import styles from "./LandingPage.module.css";
 import NavBar from "./NavBar/NavBar";
 import Body from "./Body/Body";
+import MainPage from "./MainPage/MainPage";
 
 function LandingPage() {
   return (
     <div className={styles["landing-page"]}>
       <NavBar />
-      <Body />
+      <MainPage />
     </div>
   );
 }
