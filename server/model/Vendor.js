@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const VendorSchema = new Schema({
-  Name: {
+  VendorName: {
     type: String,
     required: true,
   },

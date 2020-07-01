@@ -7,6 +7,7 @@ import SuccessPage from "./SuccessPage/SuccessPage";
 import MainPage from "./LandingPage/MainPage/MainPage";
 import Vendor from "./LandingPage/Vendor/Vendor";
 import Body from "./LandingPage/Body/Body";
+import Trivia from "./LandingPage/MainPage/Trivia/Trivia";
 
 function App() {
   return (

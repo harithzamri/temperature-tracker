@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <div>
       <figure className={`image is-128x128 ${styles["logo"]}`}>
-        <img src={logo} />
+        <img src={logo} alt="greatech" />
       </figure>
     </div>
   );

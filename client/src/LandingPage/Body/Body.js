@@ -181,7 +181,7 @@ function Body(props) {
 
           {errors.Disease && <p className="help is-danger">Invalid</p>}
         </div>
-        <LeaveComponent leave={onLeave} />
+        {/* <LeaveComponent leave={onLeave} /> */}
 
         <label className="label">Shift</label>
         <div className="control">

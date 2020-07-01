@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Vendor } = required("..model/Vendor");
+const { Vendor } = require("../model/Vendor");
 
-router.post("/uploadVendorData", (req, res) => {
+router.post("/uploadVendor", (req, res) => {
+  //save all the data we got from the client into the DB
   const vendor = new Vendor(req.body);
 
   vendor.save((err) => {
@@ -10,3 +11,5 @@ router.post("/uploadVendorData", (req, res) => {
     return res.status(200).json({ success: true });
   });
 });
+
+module.exports = router;

@@ -1,18 +1,54 @@
 import React, { useState } from "react";
 import styles from "./Vendor.module.css";
-
+import Axios from "axios";
 import NavBar from "../NavBar/NavBar";
+import { withRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
-function Vendor() {
+function Vendor(props) {
   const [VendorName, setVendorName] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Symptom, setSymptom] = useState([]);
   const [Company, setCompany] = useState("");
   const [Phone, setPhone] = useState("");
   const [ShowMore, setShowMore] = useState(false);
+  const { register, handleSubmit, errors } = useForm();
+
+  const limit =
+    Temperature >= 35.5 && Temperature <= 38
+      ? null
+      : " Your range of temperature must between 35.5 - 38.0";
 
   function onSubmit(e) {
-    e.preventDefault();
+    const variables = {
+      VendorName,
+      Temperature,
+      Company,
+      Phone,
+      // Symptom
+    };
+
+    console.log(VendorName, Temperature, Company, Phone);
+
+    Axios.post("http://localhost:5000/vendor/uploadVendor", variables).then(
+      (response) => {
+        if (response.data.success) {
+          props.history.push("/successPage");
+          return toast.success("Success", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          alert("failed");
+        }
+      }
+    );
   }
 
   const symptom = [
@@ -50,7 +86,7 @@ function Vendor() {
     </div>
   ) : null;
 
-  const handleClick = () => {
+  const handleClickVendor = () => {
     setShowMore(!ShowMore);
   };
 
@@ -64,6 +100,7 @@ function Vendor() {
             checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
             key={symptom.id}
             name="Disease"
+            ref={register({ required: true })}
             onChange={() => handleToggle(symptom.id)}
           />{" "}
           {symptom.name}
@@ -75,7 +112,7 @@ function Vendor() {
   return (
     <div className={styles["vendor"]}>
       <NavBar />
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="label">Vendor Name</label>
         <div className="control">
           <input
@@ -84,8 +121,10 @@ function Vendor() {
             placeholder="Vendor Name"
             onChange={(e) => setVendorName(e.target.value)}
             value={VendorName}
-            name="VendorName"
+            ref={register({ required: true })}
+            name="Name"
           />
+          {errors.Name && <p className="help is-danger">Name is required</p>}
         </div>
 
         <label className="label">Temperature</label>
@@ -96,21 +135,30 @@ function Vendor() {
             placeholder="Temperature"
             onChange={(e) => setTemperature(e.target.value)}
             value={Temperature}
+            ref={register({ required: true })}
             step="0.01"
             name="Temperature"
           />
+          {errors.Temperature && (
+            <p className="help is-danger">Temperature is required</p>
+          )}
+          <p className="help is-danger">{limit}</p>
         </div>
 
         <label className="label">Phone Number</label>
         <div className="control">
           <input
             className="input"
-            type="number"
+            type="tel"
             placeholder="Phone Number"
             onChange={(e) => setPhone(e.target.value)}
             value={Phone}
+            ref={register({ required: true })}
             name="Phone"
           />
+          {errors.Phone && (
+            <p className="help is-danger">Phone Number is required</p>
+          )}
         </div>
 
         <label className="label">Company</label>
@@ -121,16 +169,20 @@ function Vendor() {
             placeholder="Company Name"
             onChange={(e) => setCompany(e.target.value)}
             value={Company}
+            ref={register({ required: true })}
             name="Company"
           />
         </div>
+        {errors.Company && (
+          <p className="help is-danger">Company is required</p>
+        )}
 
         <div className={styles["checkbox"]}>
           {symptomchecked}
           {textbox}
           <button
             className={`button is-white is-small ${styles["show-more"]}`}
-            onClick={() => handleClick()}
+            onClick={() => handleClickVendor()}
           >
             Show {message}
           </button>
@@ -144,6 +196,7 @@ function Vendor() {
             >
               Save
             </button>
+            <ToastContainer />
           </div>
         </div>
       </form>
@@ -151,4 +204,4 @@ function Vendor() {
   );
 }
 
-export default Vendor;
+export default withRouter(Vendor);

@@ -16,9 +16,13 @@
   font-size: large !important;
   font-weight: 600 !important;
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .group-buttons > * {
-  margin: 5rem 1rem;
+  margin: 3rem 1rem;
+}
+.trivia {
+  display: flex;
+  justify-content: space-between;
 }

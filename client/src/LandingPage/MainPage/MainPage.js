@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./MainPage.module.css";
-import logo from "../../assets/images/logo1.png";
+
 import { Link } from "react-router-dom";
+import Trivia from "./Trivia/Trivia";
 
 function MainPage() {
   return (
@@ -17,7 +18,7 @@ function MainPage() {
         <Link to="/vendorPage">
           <button className="button is-info">
             <span className="icon is-small">
-              <img className="fas fa-wrench" />
+              <img className="fas fa-wrench" alt="vendor" />
             </span>
             <span>Vendor</span>
           </button>
@@ -25,12 +26,14 @@ function MainPage() {
         <Link to="/employeePage">
           <button className="button is-info">
             <span className="icon is-small">
-              <img className="fas fa-user-tie" />
+              <img className="fas fa-user-tie" alt="employee" />
             </span>
             <span>Employee</span>
           </button>
         </Link>
       </div>
+
+      <Trivia />
     </div>
   );
 }
