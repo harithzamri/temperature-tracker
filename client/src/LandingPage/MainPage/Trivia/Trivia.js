@@ -3,52 +3,55 @@ import styles from "./Trivia.module.css";
 import Axios from "axios";
 
 function Trivia() {
-  const [Recovered, setRecovered] = useState([]);
-  const [Confirmed, setConfirmed] = useState([]);
-  const [Deaths, setDeaths] = useState([]);
-
-  console.log(Recovered, Confirmed, Deaths);
+  const [Confirmed, setConfirmed] = useState({});
+  const [Recovered, setRecovered] = useState({});
+  const [Deaths, setDeaths] = useState({});
 
   useEffect(() => {
     Axios.get("https://covid19.mathdro.id/api/countries/MY").then(
       (response) => {
-        console.log(response.data);
-        setRecovered(response.data.confirmed.value);
-        setConfirmed(response.data.recovered.value);
-        setDeaths(response.data.deaths.value);
+        setConfirmed(response.data.confirmed);
+        setRecovered(response.data.recovered);
+        setDeaths(response.data.deaths);
       }
     );
   }, []);
 
   return (
-    <div className={styles["trivia"]}>
-      <div class={`card ${styles["infected"]}`}>
-        <header class="card-header">
-          <p class="card-header-title">Infected</p>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            <br />
+    <div>
+      <h5 className={`title is-5 ${styles["title"]}`}>Covid-19 Updates</h5>
+      <div className={styles["trivia"]}>
+        <div className={`card ${styles["infected"]}`}>
+          <header className="card-header">
+            <p className="card-header-title">Infected</p>
+          </header>
+          <div className="card-content">
+            <div className="content">
+              <strong>{Confirmed.value}</strong>
+              <br />
+            </div>
           </div>
         </div>
-      </div>
-      <div class={`card ${styles["recovered"]}`}>
-        <header class="card-header">
-          <p class="card-header-title">Recovered</p>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            <br />
+        <div className={`card ${styles["recovered"]}`}>
+          <header className="card-header">
+            <p className="card-header-title">Recovered</p>
+          </header>
+          <div className="card-content">
+            <div className="content">
+              <strong>{Recovered.value}</strong>
+              <br />
+            </div>
           </div>
         </div>
-      </div>
-      <div class={`card ${styles["deaths"]}`}>
-        <header class="card-header">
-          <p class="card-header-title">Deaths</p>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            <br />
+        <div className={`card ${styles["deaths"]}`}>
+          <header className="card-header">
+            <p className="card-header-title">Deaths</p>
+          </header>
+          <div className="card-content">
+            <div className="content">
+              <strong>{Deaths.value}</strong>
+              <br />
+            </div>
           </div>
         </div>
       </div>
