@@ -174,6 +174,7 @@ function Body(props) {
 
           <button
             className={`button is-white is-small ${styles["show-more"]}`}
+            type="button"
             onClick={() => handleClick()}
           >
             Show {message}
