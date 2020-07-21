@@ -12,4 +12,21 @@ router.post("/uploadVendor", (req, res) => {
   });
 });
 
+router.get("/getVendor", (req, res) => {
+  var datetime = new Date().toLocaleDateString();
+
+  Vendor.find({ Date: { $gte: datetime } })
+    .sort({ datefield: -1 })
+    .populate("writer")
+    .exec((err, vendor) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send(err);
+      } else {
+        res.status(200).json({ success: true, vendor });
+        //console.log(employee);
+      }
+    });
+});
+
 module.exports = router;

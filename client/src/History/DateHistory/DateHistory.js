@@ -4,6 +4,7 @@ import { CSVLink } from "react-csv";
 import styles from "./DateHistory.module.css";
 import CalendarPick from "./CalendarPick/CalendarPick";
 import load from "../../assets/images/loading.gif";
+import VendorData from "./VendorData/VendorData";
 
 function DateHistory() {
   const [DateHistory, setDateHistory] = useState([]);
@@ -31,6 +32,7 @@ function DateHistory() {
 
   return (
     <div className={styles["date-align"]}>
+      <VendorData />
       {generateReport}
       <CalendarPick />
     </div>
