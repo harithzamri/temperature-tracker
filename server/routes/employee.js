@@ -5,8 +5,11 @@ const { Employee } = require("../model/Employee");
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
   let employeeid = req.body.EmployeeId;
-  let leave = req.body.Leaves;
-  console.log(employee);
+  let temp = req.body.Temperature;
+  console.log(temp);
+
+  const filter = { EmployeeId: employeeid };
+  const update = { Temperature: temp };
 
   var date = new Date().toLocaleDateString();
 
@@ -15,8 +18,16 @@ router.post("/uploadData", (req, res) => {
     result
   ) {
     if (result) {
-      return res.status(200).json({ success: false });
-      //return res.status(200).json({ success: true });
+      Employee.findOneAndUpdate(filter, update, { new: true }).exec(
+        (err, employee) => {
+          if (err) {
+            console.log(err);
+            return res.status(400).send(err);
+          } else {
+            return res.status(200).json({ success: false, employee });
+          }
+        }
+      );
     } else {
       employee.save((err) => {
         if (err) return res.status(400).json({ success: false, err });
