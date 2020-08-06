@@ -4,7 +4,7 @@ import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import LeaveComponent from "./LeaveComponent/LeaveComponent";
+// import LeaveComponent from "./LeaveComponent/LeaveComponent";
 import NavBar from "../NavBar/NavBar";
 
 function Body(props) {
@@ -13,7 +13,7 @@ function Body(props) {
   const [Symptom, setSymptom] = useState([]);
   const [Leaves, setLeaves] = useState("None");
   const [Shift, setShift] = useState("Morning");
-  const [ShowMore, setShowMore] = useState(false);
+  // const [ShowMore, setShowMore] = useState(false);
   const { register, handleSubmit, errors } = useForm();
 
   const limit =
@@ -95,24 +95,24 @@ function Body(props) {
     console.log(Leaves);
   };
 
-  const numberOfItems = ShowMore ? symptom.length : 3;
-  const message = ShowMore ? "Less" : "More";
-  const textbox = ShowMore ? (
-    <div className="label">
-      <input className="input" type="text" />
+  // const numberOfItems = ShowMore ? symptom.length : 3;
+  // const message = ShowMore ? "Less" : "More";
+  // const textbox = ShowMore ? (
+  //   <div className="label">
+  //     <input className="input" type="text" />
 
-      <p className="help is-danger">
-        Please state history travel if you went to Redzone Area and relation on
-        the suspected/confirmed Covid-19 patient
-      </p>
-    </div>
-  ) : null;
+  //     <p className="help is-danger">
+  //       Please state history travel if you went to Redzone Area and relation on
+  //       the suspected/confirmed Covid-19 patient
+  //     </p>
+  //   </div>
+  // ) : null;
 
-  const handleClick = () => {
-    setShowMore(!ShowMore);
-  };
+  // const handleClick = () => {
+  //   if(window.confirm('Are you sure'))
+  // };
 
-  const symptomchecked = symptom.slice(0, numberOfItems).map((symptom) => {
+  const symptomchecked = symptom.map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
@@ -170,15 +170,16 @@ function Body(props) {
         </div>
         <div className={styles["checkbox"]}>
           {symptomchecked}
-          {textbox}
+          <div className="label">
+            <input className="input" type="text" />
 
-          <button
-            className={`button is-white is-small ${styles["show-more"]}`}
-            type="button"
-            onClick={() => handleClick()}
-          >
-            Show {message}
-          </button>
+            <p className="help is-danger">
+              Please state history travel if you went to Redzone Area and
+              relation on the suspected/confirmed Covid-19 patient
+            </p>
+          </div>
+
+          {/* <button onClick={handleClick}>Are you sure</button> */}
 
           {errors.Disease && <p className="help is-danger">Invalid</p>}
         </div>
@@ -207,6 +208,12 @@ function Body(props) {
             <button
               className="button is-medium is-fullwidth is-primary"
               type="submit"
+              onClick={(e) => {
+                if (
+                  window.confirm("Are you sure you wish to delete this item?")
+                )
+                  this.deleteItem(e);
+              }}
             >
               Save
             </button>
