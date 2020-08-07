@@ -18,7 +18,7 @@ const VendorSchema = new Schema({
     default: "Healthy",
   },
   Phone: {
-    type: Number,
+    type: String,
   },
   Date: {
     type: Date,
