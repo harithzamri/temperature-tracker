@@ -10,11 +10,17 @@ import NavBar from "../NavBar/NavBar";
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
   const [Temperature, setTemperature] = useState("");
-  const [Symptom, setSymptom] = useState([]);
   const [Leaves, setLeaves] = useState("None");
   const [Shift, setShift] = useState("Morning");
   // const [ShowMore, setShowMore] = useState(false);
   const { register, handleSubmit, errors } = useForm();
+  const [Symptom, setSymptom] = useState([
+    { id: 1, name: "Healthy", checked: false },
+    { id: 2, name: "Fever", checked: false },
+    { id: 3, name: "Difficult to breath", checked: false },
+    { id: 4, name: "Cough", checked: false },
+    { id: 5, name: "History Travel to Redzone", checked: false },
+  ]);
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38
@@ -24,10 +30,12 @@ function Body(props) {
     const variables = {
       EmployeeId,
       Temperature,
-      //Symptom,
+      Symptom,
       Shift,
       // Leave: Leaves,
     };
+
+    console.log(variables);
 
     Axios.post("http://localhost:5000/employee/uploadData", variables).then(
       (response) => {
@@ -63,14 +71,14 @@ function Body(props) {
     );
   }
 
-  const symptom = [
-    { id: 1, name: "Healthy" },
-    { id: 2, name: "Fever" },
-    { id: 3, name: "Difficult to breath" },
-    { id: 4, name: "Cough" },
-    { id: 5, name: "History Travel to Redzone" },
-    { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
-  ];
+  // const symptom = [
+  //   { id: 1, name: "Healthy" },
+  //   { id: 2, name: "Fever" },
+  //   { id: 3, name: "Difficult to breath" },
+  //   { id: 4, name: "Cough" },
+  //   { id: 5, name: "History Travel to Redzone" },
+  //   { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
+  // ];
 
   const shift = [
     { id: 1, name: "Morning" },
@@ -82,10 +90,10 @@ function Body(props) {
     const id = e.target.value;
 
     // Find index of the item selected
-    const index = symptom.findIndex((e) => e.id === parseInt(id, 10));
+    const index = Symptom.findIndex((e) => e.id === parseInt(id, 10));
 
     // We declare a copy of the symptom array
-    const newArr = [...symptom];
+    const newArr = [...Symptom];
     // Toggle the checked value in the specific selected item
     newArr[index].checked = !newArr[index].checked;
 
@@ -94,23 +102,44 @@ function Body(props) {
 
     // Do logic on newArr instead of symptom because setSymptom
     // is async so we can't guarantee that value is changed
-    if (newArr[index].name === "Cough" && newArr[index].checked === true) {
-      return <span>Careful</span>;
-    }
-  };
-
-  const handleToggle = (value) => {
-    const currentIndex = Symptom.indexOf(value);
-    const newChecked = [...Symptom];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+    if (newArr[index].id === 1) {
+      return toast.success("You are Healthy 😊", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      newChecked.splice(currentIndex, 1);
+      return toast.warning(
+        "Please notify Employee Health Response Team <gim-ehrt@greatech-group.com> immediately about your daily health monitoring report. Thank you. 💉",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
-    console.log(newChecked);
-    setSymptom(newChecked);
   };
+
+  // const handleToggle = (value) => {
+  //   const currentIndex = Symptom.indexOf(value);
+  //   const newChecked = [...Symptom];
+
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
+  //   console.log(newChecked);
+  //   setSymptom(newChecked);
+  // };
 
   const onLeave = (e) => {
     setLeaves(e);
@@ -134,17 +163,18 @@ function Body(props) {
   //   if(window.confirm('Are you sure'))
   // };
 
-  const symptomchecked = symptom.map((symptom) => {
+  const symptomchecked = Symptom.map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
           <input
             className="test"
-            type="checkbox"
-            checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
             key={symptom.id}
-            name="Disease"
-            onChange={() => handleToggle(symptom.id)}
+            type="checkbox"
+            checked={symptom.checked}
+            onChange={handleClick}
+            value={symptom.id}
+            name="Symptom"
             ref={register({ required: true })}
           />{" "}
           {symptom.name}
@@ -230,12 +260,6 @@ function Body(props) {
             <button
               className="button is-medium is-fullwidth is-primary"
               type="submit"
-              onClick={(e) => {
-                if (
-                  window.confirm("Are you sure you wish to delete this item?")
-                )
-                  this.deleteItem(e);
-              }}
             >
               Save
             </button>
