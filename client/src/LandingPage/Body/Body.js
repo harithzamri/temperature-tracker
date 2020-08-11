@@ -77,6 +77,28 @@ function Body(props) {
     { id: 2, name: "Night" },
   ];
 
+  const handleClick = (e) => {
+    // This is the id passed in
+    const id = e.target.value;
+
+    // Find index of the item selected
+    const index = symptom.findIndex((e) => e.id === parseInt(id, 10));
+
+    // We declare a copy of the symptom array
+    const newArr = [...symptom];
+    // Toggle the checked value in the specific selected item
+    newArr[index].checked = !newArr[index].checked;
+
+    // Replace the entire old array with the new one
+    setSymptom(newArr);
+
+    // Do logic on newArr instead of symptom because setSymptom
+    // is async so we can't guarantee that value is changed
+    if (newArr[index].name === "Cough" && newArr[index].checked === true) {
+      return <span>Careful</span>;
+    }
+  };
+
   const handleToggle = (value) => {
     const currentIndex = Symptom.indexOf(value);
     const newChecked = [...Symptom];
