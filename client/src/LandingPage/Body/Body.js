@@ -119,7 +119,7 @@ function Body(props) {
         "Please notify Employee Health Response Team <gim-ehrt@greatech-group.com> immediately about your daily health monitoring report. Thank you. 💉",
         {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 8000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

@@ -9,11 +9,19 @@ import { useForm } from "react-hook-form";
 function Vendor(props) {
   const [VendorName, setVendorName] = useState("");
   const [Temperature, setTemperature] = useState("");
-  const [Symptom, setSymptom] = useState([]);
+
   const [Company, setCompany] = useState("");
   const [Phone, setPhone] = useState("");
   const [ShowMore, setShowMore] = useState(false);
   const { register, handleSubmit, errors } = useForm();
+  const [Symptom, setSymptom] = useState([
+    { id: 1, name: "Healthy" },
+    { id: 2, name: "Fever" },
+    { id: 3, name: "Difficult to breath" },
+    { id: 4, name: "Cough" },
+    { id: 5, name: "History Travel to Redzone" },
+    { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
+  ]);
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38
@@ -51,57 +59,101 @@ function Vendor(props) {
     );
   }
 
-  const symptom = [
-    { id: 1, name: "Healthy" },
-    { id: 2, name: "Fever" },
-    { id: 3, name: "Difficult to breath" },
-    { id: 4, name: "Cough" },
-    { id: 5, name: "History Travel to Redzone" },
-    { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
-  ];
+  // const symptom = [
+  //   { id: 1, name: "Healthy" },
+  //   { id: 2, name: "Fever" },
+  //   { id: 3, name: "Difficult to breath" },
+  //   { id: 4, name: "Cough" },
+  //   { id: 5, name: "History Travel to Redzone" },
+  //   { id: 6, name: "Close contact to suspected/confirmed Covid-19 patient" },
+  // ];
 
-  const handleToggle = (value) => {
-    const currentIndex = Symptom.indexOf(value);
-    const newChecked = [...Symptom];
+  const handleClick = (e) => {
+    // This is the id passed in
+    const id = e.target.value;
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    console.log(newChecked);
-    setSymptom(newChecked);
+    // Find index of the item selected
+    const index = Symptom.findIndex((e) => e.id === parseInt(id, 10));
+
+    // We declare a copy of the symptom array
+    const newArr = [...Symptom];
+    // Toggle the checked value in the specific selected item
+    newArr[index].checked = !newArr[index].checked;
+
+    // Replace the entire old array with the new one
+    setSymptom(newArr);
+
+    // Do logic on newArr instead of symptom because setSymptom
+    // is async so we can't guarantee that value is changed
+    // if (newArr[index].id === 1) {
+    //   return toast.success("Stay Healthy 🌞", {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // } else {
+    //   return toast.warning(
+    //     "Please notify Employee Health Response Team <gim-ehrt@greatech-group.com> immediately about your daily health monitoring report. Thank you. 💉",
+    //     {
+    //       position: "top-right",
+    //       autoClose: 8000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     }
+    //   );
+    // }
   };
 
-  const numberOfItems = ShowMore ? symptom.length : 3;
-  const message = ShowMore ? "Less" : "More";
-  const textbox = ShowMore ? (
-    <div className="label">
-      <input className="input" type="text" />
+  // const handleToggle = (value) => {
+  //   const currentIndex = Symptom.indexOf(value);
+  //   const newChecked = [...Symptom];
 
-      <p className="help is-danger">
-        Please state history travel if you went to Redzone Area and relation on
-        the suspected/confirmed Covid-19 patient
-      </p>
-    </div>
-  ) : null;
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
+  //   console.log(newChecked);
+  //   setSymptom(newChecked);
+  // };
+
+  // const numberOfItems = ShowMore ? symptom.length : 3;
+  // const message = ShowMore ? "Less" : "More";
+  // const textbox = ShowMore ? (
+  //   <div className="label">
+  //     <input className="input" type="text" />
+
+  //     <p className="help is-danger">
+  //       Please state history travel if you went to Redzone Area and relation on
+  //       the suspected/confirmed Covid-19 patient
+  //     </p>
+  //   </div>
+  // ) : null;
 
   // const handleClickVendor = () => {
   //   setShowMore(!ShowMore);
   // };
 
-  const symptomchecked = symptom.map((symptom) => {
+  const symptomchecked = Symptom.map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
           <input
             className="test"
-            type="checkbox"
-            checked={Symptom.indexOf(symptom.id) === -1 ? false : true}
             key={symptom.id}
-            name="Disease"
+            type="checkbox"
+            checked={symptom.checked}
+            onChange={handleClick}
+            value={symptom.id}
+            name="Symptom"
             ref={register({ required: true })}
-            onChange={() => handleToggle(symptom.id)}
           />{" "}
           {symptom.name}
         </label>
