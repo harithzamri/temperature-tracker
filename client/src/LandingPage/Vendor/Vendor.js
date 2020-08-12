@@ -86,11 +86,11 @@ function Vendor(props) {
     </div>
   ) : null;
 
-  const handleClickVendor = () => {
-    setShowMore(!ShowMore);
-  };
+  // const handleClickVendor = () => {
+  //   setShowMore(!ShowMore);
+  // };
 
-  const symptomchecked = symptom.slice(0, numberOfItems).map((symptom) => {
+  const symptomchecked = symptom.map((symptom) => {
     return (
       <div className="control">
         <label className="checkbox">
@@ -179,13 +179,14 @@ function Vendor(props) {
 
         <div className={styles["checkbox"]}>
           {symptomchecked}
-          {textbox}
-          <button
-            className={`button is-white is-small ${styles["show-more"]}`}
-            onClick={() => handleClickVendor()}
-          >
-            Show {message}
-          </button>
+          <div className="label">
+            <input className="input" type="text" />
+
+            <p className="help is-danger">
+              Please state history travel if you went to Redzone Area and
+              relation on the suspected/confirmed Covid-19 patient
+            </p>
+          </div>
         </div>
 
         <div>
