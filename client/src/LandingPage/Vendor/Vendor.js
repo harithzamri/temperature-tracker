@@ -112,7 +112,7 @@ function Vendor(props) {
   return (
     <div className={styles["vendor"]}>
       <NavBar />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
         <label className="label">Vendor Name</label>
         <div className="control">
           <input

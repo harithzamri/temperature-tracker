@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem;
+}
+
+.form {
+  margin-top: 1.5rem;
+}
+
+.form > * {
+  margin-top: 0.5rem;
 }
 
 .checkbox {

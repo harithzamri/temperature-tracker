@@ -23,14 +23,16 @@ function Body(props) {
   ]);
 
   const limit =
-    Temperature >= 35.5 && Temperature <= 38
-      ? null
-      : " Your range of temperature must between 35.5 - 38.0";
+    Temperature >= 35.5 && Temperature <= 38 ? null : (
+      <p className="help is-danger">
+        <b>Your range of temperature must between 35.5 - 38.0</b>
+      </p>
+    );
   function onSubmit() {
     const variables = {
       EmployeeId,
       Temperature,
-      Symptom,
+      // Symptom,
       Shift,
       // Leave: Leaves,
     };
@@ -103,7 +105,7 @@ function Body(props) {
     // Do logic on newArr instead of symptom because setSymptom
     // is async so we can't guarantee that value is changed
     if (newArr[index].id === 1) {
-      return toast.success("You are Healthy 😊", {
+      return toast.success("Stay Healthy 🌞", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -186,7 +188,7 @@ function Body(props) {
   return (
     <div className={styles["body"]}>
       <NavBar />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
         <label className="label">EmployeeID</label>
         <div className="control">
           <input
@@ -240,7 +242,7 @@ function Body(props) {
         <label className="label">Shift</label>
         <div className="control">
           {shift.map((shift) => (
-            <label className="radio">
+            <label className={`radio ${styles["button"]}`}>
               <input
                 type="radio"
                 checked={Shift ? Shift === shift.name : false}
