@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { Employee } = require("../model/Employee");
+const SMTPClient = require("emailjs");
+
+const client = new SMTPClient({
+  user: "Harith",
+  password: "harith123",
+  host: "ttemp3799@gmail.com",
+  ssl: true,
+});
 
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
@@ -17,7 +25,17 @@ router.post("/uploadData", (req, res) => {
   if (checked.indexOf("1") === 0) {
     console.log(false);
   } else {
-    console.log(true);
+    client.send(
+      {
+        text: "Triggering alert",
+        from: "ttemp3799@gmail.com",
+        to: "harithtoikee96@gmail.com",
+        subject: "Greatech Covid Report",
+      },
+      (err, message) => {
+        console.log(err || message);
+      }
+    );
   }
 
   Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (
