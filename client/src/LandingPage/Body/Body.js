@@ -21,6 +21,7 @@ function Body(props) {
     { id: 4, name: "Cough", checked: false },
     { id: 5, name: "History Travel to Redzone", checked: false },
   ]);
+  const [Checked, setChecked] = useState([]);
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38 ? null : (
@@ -34,6 +35,7 @@ function Body(props) {
       Temperature,
       // Symptom,
       Shift,
+      Checked,
       // Leave: Leaves,
     };
 
@@ -90,6 +92,13 @@ function Body(props) {
   const handleClick = (e) => {
     // This is the id passed in
     const id = e.target.value;
+    const currentIndex = Checked.indexOf(id);
+    const newChecked = [...Checked];
+    if (currentIndex === -1) {
+      newChecked.push(id);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
 
     // Find index of the item selected
     const index = Symptom.findIndex((e) => e.id === parseInt(id, 10));
@@ -101,6 +110,7 @@ function Body(props) {
 
     // Replace the entire old array with the new one
     setSymptom(newArr);
+    setChecked(newChecked);
 
     // Do logic on newArr instead of symptom because setSymptom
     // is async so we can't guarantee that value is changed
@@ -115,7 +125,7 @@ function Body(props) {
         progress: undefined,
       });
     } else {
-      return toast.warning(
+      return toast.dark(
         "Please notify Employee Health Response Team <gim-ehrt@greatech-group.com> immediately about your daily health monitoring report. Thank you. 💉",
         {
           position: "top-right",

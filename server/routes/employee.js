@@ -6,12 +6,19 @@ router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
   let employeeid = req.body.EmployeeId;
   let temp = req.body.Temperature;
-  console.log(temp);
+  let checked = req.body.Checked;
+  console.log(checked);
 
   const filter = { EmployeeId: employeeid };
   const update = { Temperature: temp };
 
   var date = new Date().toLocaleDateString();
+  // console.log(checked.indexOf(1));
+  if (checked.indexOf("1") === 0) {
+    console.log(false);
+  } else {
+    console.log(true);
+  }
 
   Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (
     err,
