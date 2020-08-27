@@ -1,14 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Employee } = require("../model/Employee");
-const SMTPClient = require("emailjs");
-
-const client = new SMTPClient({
-  user: "Harith",
-  password: "harith123",
-  host: "ttemp3799@gmail.com",
-  ssl: true,
-});
 
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
