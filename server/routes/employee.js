@@ -1,6 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const { Employee } = require("../model/Employee");
+const nodemailer = require("nodemailer");
+
+async function main(employeeid, temp) {
+  let transporter = nodemailer.createTransport({
+    host: "SMTP.office365.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "harith@greatech-group.com",
+      pass: "U5kinss0/",
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: "harith@greatech-group.com",
+    to: "gim-ehrt@greatech-group.com", // list of receivers
+    subject: "Employee Self Declaration - Medium/High Risk", // Subject line
+    text: `${employeeid} with ${temp} has Fever and Difficult to breath`, // plain text body
+    // html: "<b>Hello world?</b>", // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+}
 
 router.post("/uploadData", (req, res) => {
   const employee = new Employee(req.body);
@@ -17,17 +41,7 @@ router.post("/uploadData", (req, res) => {
   if (checked.indexOf("1") === 0) {
     console.log(false);
   } else {
-    client.send(
-      {
-        text: "Triggering alert",
-        from: "ttemp3799@gmail.com",
-        to: "harithtoikee96@gmail.com",
-        subject: "Greatech Covid Report",
-      },
-      (err, message) => {
-        console.log(err || message);
-      }
-    );
+    main(employeeid, temp).catch(console.error);
   }
 
   Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (
