@@ -9,6 +9,7 @@ import NavBar from "../NavBar/NavBar";
 
 function Body(props) {
   const [EmployeeId, setEmployeeId] = useState("");
+  const [details, setDetails] = useState("");
   const [Temperature, setTemperature] = useState("");
   const [Leaves, setLeaves] = useState("None");
   const [Shift, setShift] = useState("Morning");
@@ -36,6 +37,7 @@ function Body(props) {
       // Symptom,
       Shift,
       Checked,
+      details,
       // Leave: Leaves,
     };
 
@@ -235,7 +237,12 @@ function Body(props) {
         <div className={styles["checkbox"]}>
           {symptomchecked}
           <div className="label">
-            <input className="input" type="text" />
+            <input
+              className="input"
+              type="text"
+              onChange={(e) => setDetails(e.target.value)}
+              value={details}
+            />
 
             <p className="help is-danger">
               Please state history travel if you went to Redzone Area and
