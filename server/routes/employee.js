@@ -18,7 +18,7 @@ async function main(employeeid, temp, details) {
     from: "harith@greatech-group.com",
     to: "gim-ehrt@greatech-group.com", // list of receivers
     subject: "Employee Self Declaration - Medium/High Risk", // Subject line
-    text: `${employeeid} with ${temp}°C. ${details}`, // plain text body
+    text: `${employeeid} with ${temp}°C. Details: ${details} `, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 
