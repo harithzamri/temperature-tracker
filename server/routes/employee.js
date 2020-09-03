@@ -3,7 +3,7 @@ const router = express.Router();
 const { Employee } = require("../model/Employee");
 const nodemailer = require("nodemailer");
 
-async function main(employeeid, temp) {
+async function main(employeeid, temp, details) {
   let transporter = nodemailer.createTransport({
     host: "SMTP.office365.com",
     port: 587,
@@ -18,7 +18,7 @@ async function main(employeeid, temp) {
     from: "harith@greatech-group.com",
     to: "gim-ehrt@greatech-group.com", // list of receivers
     subject: "Employee Self Declaration - Medium/High Risk", // Subject line
-    text: `${employeeid} with ${temp} has Fever and Difficult to breath`, // plain text body
+    text: `${employeeid} with ${temp}°C. ${details}`, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 
@@ -31,6 +31,7 @@ router.post("/uploadData", (req, res) => {
   let employeeid = req.body.EmployeeId;
   let temp = req.body.Temperature;
   let checked = req.body.Checked;
+  let details = req.body.details;
   console.log(checked);
 
   const filter = { EmployeeId: employeeid };
@@ -41,7 +42,7 @@ router.post("/uploadData", (req, res) => {
   if (checked.indexOf("1") === 0) {
     console.log(false);
   } else {
-    main(employeeid, temp).catch(console.error);
+    main(employeeid, temp, details).catch(console.error);
   }
 
   Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (
