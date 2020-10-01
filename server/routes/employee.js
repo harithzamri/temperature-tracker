@@ -10,7 +10,7 @@ async function main(employeeid, temp, details) {
     secure: false,
     auth: {
       user: "harith@greatech-group.com",
-      pass: "U5kinss0/",
+      pass: "MEly2xfM/",
     },
   });
 

@@ -11,8 +11,8 @@ const EmployeeSchema = new Schema({
     required: true,
   },
   Symptom: {
-    type: String,
-    default: "Healthy",
+    type: Array,
+    default: [],
   },
 
   Shift: {

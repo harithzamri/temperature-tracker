@@ -23,6 +23,7 @@ function Body(props) {
     { id: 5, name: "History Travel to Redzone", checked: false },
   ]);
   const [Checked, setChecked] = useState([]);
+  const [disease, setDisease] = useState([]);
 
   const limit =
     Temperature >= 35.5 && Temperature <= 38 ? null : (
@@ -34,7 +35,7 @@ function Body(props) {
     const variables = {
       EmployeeId,
       Temperature,
-      // Symptom,
+      Symptom: disease,
       Shift,
       Checked,
       details,
@@ -91,15 +92,22 @@ function Body(props) {
     { id: 2, name: "Night" },
   ];
 
-  const handleClick = (e) => {
+  const handleClick = (name, id) => {
     // This is the id passed in
-    const id = e.target.value;
     const currentIndex = Checked.indexOf(id);
     const newChecked = [...Checked];
     if (currentIndex === -1) {
       newChecked.push(id);
     } else {
       newChecked.splice(currentIndex, 1);
+    }
+
+    const currentDisease = disease.indexOf(name);
+    const newDisease = [...disease];
+    if (currentDisease === -1) {
+      newDisease.push(name);
+    } else {
+      newDisease.splice(currentDisease, 1);
     }
 
     // Find index of the item selected
@@ -112,6 +120,7 @@ function Body(props) {
 
     // Replace the entire old array with the new one
     setSymptom(newArr);
+    setDisease(newDisease);
     setChecked(newChecked);
 
     // Do logic on newArr instead of symptom because setSymptom
@@ -186,7 +195,7 @@ function Body(props) {
             key={symptom.id}
             type="checkbox"
             checked={symptom.checked}
-            onChange={handleClick}
+            onChange={() => handleClick(symptom.name, symptom.id)}
             value={symptom.id}
             name="Symptom"
             ref={register({ required: true })}
