@@ -66,7 +66,13 @@ function CalendarPick() {
           className={`button is-primary ${styles["button"]}`}
           onClick={onSubmit}
         >
-          Generate Report
+          Generate Employee Report
+        </button>
+        <button
+          type="button"
+          className={`button is-primary ${styles["button"]}`}
+        >
+          Generate Vendor Report
         </button>
 
         {appearbutton}

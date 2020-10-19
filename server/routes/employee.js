@@ -42,7 +42,7 @@ router.post("/uploadData", (req, res) => {
   if (checked.indexOf("1") === 0) {
     console.log(false);
   } else {
-    main(employeeid, temp, details).catch(console.error);
+    // main(employeeid, temp, details).catch(console.error);
   }
 
   Employee.exists({ Date: { $gte: date }, EmployeeId: employeeid }, function (

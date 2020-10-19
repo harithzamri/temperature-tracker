@@ -61,18 +61,15 @@ function Body(props) {
             progress: undefined,
           });
         } else {
-          return toast.error(
-            "You already Login for today, try again tomorrow",
-            {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }
-          );
+          return toast.error("Update the previous data 👍", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       }
     );
