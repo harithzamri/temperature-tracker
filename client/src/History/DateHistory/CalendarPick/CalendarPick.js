@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./CalendarPick.module.css";
 import Calendar from "react-calendar";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CSVLink } from "react-csv";
 import dateFormat from "dateformat";
 import load from "../../../assets/images/loading.gif";
 
-function CalendarPick() {
+function CalendarPick(props) {
   const [Beginning, setBeginning] = useState(new Date());
   const [Ending, setEnding] = useState(new Date());
   const [Result, setResult] = useState([]);
@@ -51,33 +51,29 @@ function CalendarPick() {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className={styles["calendar"]}>
-        <h2>Generate Report by Date</h2>
-        <Calendar
-          // className={styles["calendar"]}
-          onChange={onChange}
-          value={Beginning}
-        />
-        <Calendar onChange={onChangeEnd} value={Ending} />
+    <div>
+      <form onSubmit={onSubmit}>
+        <div className={styles["calendar"]}>
+          <h2>Generate Report by Date</h2>
+          <Calendar
+            // className={styles["calendar"]}
+            onChange={onChange}
+            value={Beginning}
+          />
+          <Calendar onChange={onChangeEnd} value={Ending} />
 
-        <button
-          type="button"
-          className={`button is-primary ${styles["button"]}`}
-          onClick={onSubmit}
-        >
-          Generate Employee Report
-        </button>
-        <button
-          type="button"
-          className={`button is-primary ${styles["button"]}`}
-        >
-          Generate Vendor Report
-        </button>
+          <button
+            type="button"
+            className={`button is-primary ${styles["button"]}`}
+            onClick={onSubmit}
+          >
+            Generate Employee Report
+          </button>
 
-        {appearbutton}
-      </div>
-    </form>
+          {appearbutton}
+        </div>
+      </form>
+    </div>
   );
 }
 

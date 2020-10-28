@@ -6,7 +6,7 @@ import CalendarPick from "./CalendarPick/CalendarPick";
 import load from "../../assets/images/loading.gif";
 import VendorData from "./VendorData/VendorData";
 
-function DateHistory() {
+function DateHistory(props) {
   const [DateHistory, setDateHistory] = useState([]);
 
   useEffect(() => {
