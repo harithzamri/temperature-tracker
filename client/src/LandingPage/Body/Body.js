@@ -20,7 +20,9 @@ function Body(props) {
     { id: 2, name: "Fever", checked: false },
     { id: 3, name: "Difficult to breath", checked: false },
     { id: 4, name: "Cough", checked: false },
-    { id: 5, name: "History Travel to Redzone", checked: false },
+    { id: 5, name: "Sudden loss sense of smell", checked: false },
+    { id: 6, name: "Sudden loss sense of taste", checked: false },
+    { id: 7, name: "History Travel to Redzone", checked: false },
   ]);
   const [Checked, setChecked] = useState([]);
   const [disease, setDisease] = useState([]);
