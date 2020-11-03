@@ -13,10 +13,9 @@ router.post("/uploadVendor", (req, res) => {
 });
 
 router.get("/getVendor", (req, res) => {
-  var datetime = new Date().toLocaleDateString();
+  // var datetime = new Date().toLocaleDateString();
 
-  Vendor.find({ Date: { $gte: datetime } })
-    .sort({ datefield: -1 })
+  Vendor.find({})
     .populate("writer")
     .exec((err, vendor) => {
       if (err) {
