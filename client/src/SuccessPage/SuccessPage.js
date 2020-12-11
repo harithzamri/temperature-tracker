@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./SuccessPage.module.css";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 function SuccessPage(props) {
@@ -21,6 +22,11 @@ function SuccessPage(props) {
           <i className="fas fa-arrow-right"></i>
         </span>
       </button>
+      <Link to="/">
+        <button className={`button is-primary ${styles["menu"]}`}>
+          <span>Back to Main Menu</span>
+        </button>
+      </Link>
     </div>
   );
 }
