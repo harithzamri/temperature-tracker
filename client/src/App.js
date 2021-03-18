@@ -8,6 +8,7 @@ import MainPage from "./LandingPage/MainPage/MainPage";
 import Vendor from "./LandingPage/Vendor/Vendor";
 import Body from "./LandingPage/Body/Body";
 import Trivia from "./LandingPage/MainPage/Trivia/Trivia";
+import Check from "./Check/Check";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route exact path="/successPage" component={SuccessPage} />
       <Route exact path="/vendorPage" component={Vendor} />
       <Route exact path="/employeePage" component={Body} />
+      <Route exact path="/checkHistory" component={Check} />
     </Switch>
   );
 }

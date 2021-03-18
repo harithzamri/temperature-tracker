@@ -32,6 +32,16 @@ function MainPage() {
           </button>
         </Link>
       </div>
+      <div style={{ marginTop: "2rem" }}>
+        <Link to="/checkHistory">
+          <button className="button is-info">
+            <span className="icon is-small">
+              <img className="fas fa-clock" alt="time" />
+            </span>
+            <span>Check History Temperature</span>
+          </button>
+        </Link>
+      </div>
 
       <Trivia />
     </div>

@@ -25,7 +25,7 @@ function History(props) {
   const displaybutton = Details.length ? (
     <button className="button is-info">To view report</button>
   ) : (
-    <div />
+    <div>Loading</div>
   );
 
   return (
@@ -40,7 +40,7 @@ function History(props) {
           <strong>Your Past Temperature</strong>
         </span>
 
-        {Details.slice(0, 3).map((details) => (
+        {Details.slice(0, 10).map((details) => (
           <Result temperature={details.Temperature} date={details.Date} />
         ))}
       </div>
