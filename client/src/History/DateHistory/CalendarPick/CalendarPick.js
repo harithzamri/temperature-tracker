@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CalendarPick.module.css";
 import Calendar from "react-calendar";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CSVLink } from "react-csv";
 import dateFormat from "dateformat";
 import load from "../../../assets/images/loading.gif";

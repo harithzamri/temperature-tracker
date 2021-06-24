@@ -7,8 +7,8 @@ import SuccessPage from "./SuccessPage/SuccessPage";
 import MainPage from "./LandingPage/MainPage/MainPage";
 import Vendor from "./LandingPage/Vendor/Vendor";
 import Body from "./LandingPage/Body/Body";
-import Trivia from "./LandingPage/MainPage/Trivia/Trivia";
 import Check from "./Check/Check";
+import VendorHistory from "./History/DateHistory/VendorHistory/vendorhistory";
 
 function App() {
   return (
@@ -16,11 +16,12 @@ function App() {
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/mainmenu" component={MainPage} />
       <Route exact path="/employee/:employeeId" component={History} />
-      <Route exact path="/historydate" component={DateHistory} />
+      <Route exact path="/employeeHistory" component={DateHistory} />
       <Route exact path="/successPage" component={SuccessPage} />
       <Route exact path="/vendorPage" component={Vendor} />
       <Route exact path="/employeePage" component={Body} />
       <Route exact path="/checkHistory" component={Check} />
+      <Route exact path='/vendorHistory' component={VendorHistory} />
     </Switch>
   );
 }

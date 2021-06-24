@@ -1,0 +1,8 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  margin: 3rem 5rem;
+}

@@ -28,4 +28,21 @@ router.get("/getVendor", (req, res) => {
     });
 });
 
+router.post("/sortbyDateVendor", (req, res) => {
+  let beginingTime = req.body.beginning;
+  let endTime = req.body.ending;
+
+  Vendor.find({ Date: { $gte: beginingTime, $lt: endTime } })
+    .sort({ datefield: -1 })
+    .populate("writer")
+    .exec((err, vendor) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send(err);
+      } else {
+        return res.status(200).json({ success: true, vendor });
+      }
+    });
+});
+
 module.exports = router;
